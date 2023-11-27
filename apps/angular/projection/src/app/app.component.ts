@@ -9,15 +9,7 @@ import { AppFacade } from './app.facade';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <div class="grid grid-cols-3 gap-3">
-      <app-teacher-card
-        [teachers]="(facade.teachers | async)!"></app-teacher-card>
-      <app-student-card
-        [students]="(facade.students | async)!"></app-student-card>
-      <app-city-card></app-city-card>
-    </div>
-  `,
+  templateUrl: 'app.component.html',
   standalone: true,
   providers: [AppFacade],
   imports: [

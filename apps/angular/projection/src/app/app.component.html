@@ -1,0 +1,14 @@
+<div class="grid grid-cols-3 gap-3">
+  <app-teacher-card
+    [teachers]="(facade.teachers$ | async)!"
+    (addTeacher)="facade.addTeacher()"
+    (deleteTeacher)="facade.deleteTeacher($event)"></app-teacher-card>
+  <app-student-card
+    [students]="(facade.students$ | async)!"
+    (addStudent)="facade.addStudent()"
+    (deleteStudent)="facade.deleteStudent($event)"></app-student-card>
+  <app-city-card
+    [cities]="(facade.cities$ | async)!"
+    (addCity)="facade.addCity()"
+    (deleteCity)="facade.deleteCity($event)"></app-city-card>
+</div>

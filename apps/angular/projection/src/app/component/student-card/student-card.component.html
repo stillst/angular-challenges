@@ -1,0 +1,17 @@
+<app-card
+  [list]="students"
+  [color]="cityCardColor"
+  (addItem)="addStudent.emit()">
+  <img
+    cardImg
+    ngSrc="assets/img/student.webp"
+    priority="high"
+    alt="student"
+    width="200"
+    height="200" />
+  <ng-template cardItemTmp let-item>
+    <app-list-item (deleteItem)="deleteStudent.emit(item.id)">
+      <span>{{ item.firstname }}</span>
+    </app-list-item>
+  </ng-template>
+</app-card>

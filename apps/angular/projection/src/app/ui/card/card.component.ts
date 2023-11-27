@@ -1,34 +1,36 @@
+import { NgStyle } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { NgFor, NgIf } from '@angular/common';
+import { TemplateRef } from '@angular/core';
+import { ContentChild } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { randStudent, randTeacher } from '../../data-access/fake-http.service';
-import { StudentStore } from '../../data-access/student.store';
-import { TeacherStore } from '../../data-access/teacher.store';
-import { CardType } from '../../model/card.model';
 import { ListItemComponent } from '../list-item/list-item.component';
+import { CardItemTmpDirective } from './card-item-tmp.directive';
 
 @Component({
   selector: 'app-card',
-  templateUrl: './card.component.html',
+  templateUrl: 'card.component.html',
   standalone: true,
-  imports: [NgIf, NgFor, ListItemComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgIf, NgFor, ListItemComponent, NgTemplateOutlet, NgStyle],
 })
-export class CardComponent {
-  @Input() list: any[] | null = null;
-  @Input() type!: CardType;
-  @Input() customClass = '';
+export class CardComponent<T extends { id: number }, U> {
+  @Input()
+  list: T[] = [];
 
-  CardType = CardType;
+  @Input()
+  color?: string;
 
-  constructor(
-    private teacherStore: TeacherStore,
-    private studentStore: StudentStore
-  ) {}
+  @ContentChild(CardItemTmpDirective, { read: TemplateRef })
+  readonly cardItemTmp?: TemplateRef<U> | null;
 
-  addNewItem() {
-    if (this.type === CardType.TEACHER) {
-      this.teacherStore.addOne(randTeacher());
-    } else if (this.type === CardType.STUDENT) {
-      this.studentStore.addOne(randStudent());
-    }
+  @Output()
+  addItem: EventEmitter<void> = new EventEmitter<void>();
+
+  itemById(_: number, item: T): number {
+    return item.id;
   }
 }

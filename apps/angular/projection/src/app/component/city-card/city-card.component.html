@@ -1,0 +1,14 @@
+<app-card [list]="cities" [color]="cityCardColor" (addItem)="addCity.emit()">
+  <img
+    cardImg
+    ngSrc="assets/img/city.webp"
+    priority="high"
+    alt="city"
+    height="200"
+    width="200" />
+  <ng-template cardItemTmp let-item>
+    <app-list-item (deleteItem)="deleteCity.emit(item.id)">
+      <span>{{ item.name }}</span>
+    </app-list-item>
+  </ng-template>
+</app-card>

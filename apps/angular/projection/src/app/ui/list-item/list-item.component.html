@@ -1,0 +1,11 @@
+<div class="border border-grey-300 py-1 px-2 flex justify-between">
+  <ng-content></ng-content>
+  <button (click)="deleteItem.emit()">
+    <img
+      class="h-5"
+      ngSrc="assets/svg/trash.svg"
+      alt="trash icon"
+      width="17"
+      height="17.5" />
+  </button>
+</div>
