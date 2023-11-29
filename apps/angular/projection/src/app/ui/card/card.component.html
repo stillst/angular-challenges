@@ -3,14 +3,14 @@
   [ngStyle]="{ 'background-color': color }">
   <ng-content select="[cardImg]" />
   <section>
-    <ng-container *ngFor="let item of list; trackBy: itemById">
+    @for (item of list; track item.id) {
       <ng-template
         *ngTemplateOutlet="
           cardItemTmp ?? defaultTmp;
           context: { $implicit: item }
         " />
       <ng-template #defaultTmp let-item> {{ item.name }}</ng-template>
-    </ng-container>
+    }
   </section>
 
   <button
